@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Medicine Project</title>
+  <link rel="stylesheet" href="nurse.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+
+</head>
+<body>
+  <div class="main">
+    <div class="side-bar">
+      <div class="color"><div class="nav-line"></div></div>
+      <div class="nav-list">
+        <ul>
+          <li><i class="fa-solid fa-house"></i><a href="main.html">About</a></li>
+          <li><i class="fa-regular fa-bell"></i><a href="reminder.html">Set Reminder</a></li>
+          <li><i class="fa-regular fa-envelope"></i><a href="support.html">Support</a></li>
+          <li><i class="fa-regular fa-comments"></i><a href="feedback.html">Feedback</a></li>
+          <li><i class="fa-solid fa-right-from-bracket"></i><a href="login.html">Log Out</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="top-content">
+      <div class="history"><i class="fa-solid fa-arrow-left" id="back"></i></div>
+      <div class="log">
+        <div class="log-img"><img src="photos/medo.png" style="width: 85px; height: 85px;" /></div>
+        <div class="log-name"><h2>MED REMINDER</h2></div>
+      </div>
+    </div>
+
+    <div class="main-content d-flex flex-row justify-content-between">
+      <div class="input-container">
+        <div class="mheader">Add Medicine Reminders</div>
+        <div id="medicineInputs">
+          <div class="medicine-entry">
+            <input type="text" class="patientName" placeholder="Patient Name" />
+            <input type="text" class="medicineName" placeholder="Medicine Name" />
+            <input type="time" class="medicineTime" />
+            <input type="text" class="medicineDose" placeholder="Dose (e.g., 1 Tablet)" />
+            <input type="text" class="medicineNotes" placeholder="Notes (e.g., After Meal)" />
+          </div>
+        </div>
+        <button class="add-button" id="sub">Submit Reminder</button>
+      </div>
+    
+      <div class="container" style="width: 65%;">
+        <div class="header">Medicine Reminders</div>
+        <table class="table table-bordered table-hover bg-light text-dark">
+          <thead class="table-dark">
+            <tr>
+              <th>Patient</th>
+              <th>Medicine</th>
+              <th>Time</th>
+              <th>Dose</th>
+              <th>Notes</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="reminderTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+    
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-danger text-white">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteModalLabel">Delete Reminder</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">Are you sure you want to delete this reminder?</div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-warning" id="confirmDeleteBtn">Yes, Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+  <!-- Delete Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content bg-danger text-white">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModalLabel">Delete Reminder</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">Are you sure you want to delete this reminder?</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-warning" id="confirmDeleteBtn">Yes, Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- reminderModal -->
+<!-- reminder-modal.html -->
+<div class="modal fade" id="reminderModal" tabindex="-1" aria-labelledby="reminderModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-dark text-white border-0 rounded-4 shadow-lg animate__animated animate__fadeInDown">
+      <div class="modal-header border-0 rounded-top-4 p-4" style="background: linear-gradient(135deg, #6f42c1, #6610f2); box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+        <h5 class="modal-title d-flex align-items-center gap-3 fs-3">
+          <i class="fa-solid fa-bell fa-beat-fade text-warning"></i> Urgent Medicine Reminder
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body px-5 py-4 bg-gradient" style="background: linear-gradient(to right, #232526, #414345);">
+        <div class="row gy-4 text-light">
+          <div class="col-md-6 d-flex align-items-center">
+            <i class="fa-solid fa-pills fa-xl text-primary me-3"></i>
+            <div>
+              <div class="fw-bold text-uppercase small">Medicine</div>
+              <div class="fs-5" id="medicineName"></div>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-center">
+            <i class="fa-solid fa-capsules fa-xl text-success me-3"></i>
+            <div>
+              <div class="fw-bold text-uppercase small">Dose</div>
+              <div class="fs-5" id="dose"></div>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-center">
+            <i class="fa-regular fa-clock fa-xl text-warning me-3"></i>
+            <div>
+              <div class="fw-bold text-uppercase small">Time</div>
+              <div class="fs-5" id="reminderTime"></div>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-center">
+            <i class="fa-solid fa-user fa-xl text-info me-3"></i>
+            <div>
+              <div class="fw-bold text-uppercase small">Patient</div>
+              <div class="fs-5" id="patientName"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer border-0 bg-dark justify-content-center py-4 rounded-bottom-4">
+        <button type="button" class="btn btn-outline-warning px-4 py-2 rounded-pill fs-6" data-bs-dismiss="modal">
+          Acknowledge <i class="fa-solid fa-check ms-2"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<audio id="reminderSound" preload="auto" loop>
+  <source src="ringtone-89218.mp3" type="audio/mp3">
+  Your browser does not support the audio element.
+</audio>
+
+<!-- Optional: Animate.css -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script> -->
+  <!-- <script src="./reminder-checker.js"></script> -->
+  <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+  <script src="socket.js"></script>
+  <script src="nurse.js"></script>
+</body>
+</html>
